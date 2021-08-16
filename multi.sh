@@ -908,188 +908,8 @@ if [ "$main" -lt 5 ]|| [ "$minor" -lt 6 ]; then
 	red " 检测到内核版本小于5.6，回到菜单，选择2，更新内核吧"
 	exit 1
 fi
-
-apt update
-apt -y --no-install-recommends install openresolv dnsutils wireguard-tools
-wget -N https://github.com/YG-tsj/CFWarp-Pro/raw/main/wgcf
-cp wgcf /usr/local/bin/wgcf
-chmod +x /usr/local/bin/wgcf
-echo | wgcf register
-until [ $? -eq 0 ]
-do
-sleep 1s
-echo | wgcf register
-done
-wgcf generate
-sed -i 's/engage.cloudflareclient.com/162.159.192.1/g' wgcf-profile.conf
-sed -i '/0\.0\.0\.0\/0/d' wgcf-profile.conf
-sed -i 's/1.1.1.1/8.8.8.8,2001:4860:4860::8888/g' wgcf-profile.conf
-cp wgcf-account.toml /etc/wireguard/wgcf-account.toml
-cp wgcf-profile.conf /etc/wireguard/wgcf.conf
-systemctl enable wg-quick@wgcf
-systemctl start wg-quick@wgcf
-rm -f wgcf*
-yellow " 检测是否成功启动Warp！\n 显示IPV6地址：$(wget -qO- -6 ip.gs) "
-green " 如上方显示IPV6地址：2a09:…………，则说明成功啦！\n 如上方无IP显示,则说明失败喽！ "
+bash <(curl -fsSL git.io/warp.sh) 6
 }
-
-function warp64(){
-if [ "$main" -lt 5 ]|| [ "$minor" -lt 6 ]; then 
-	red " 检测到内核版本小于5.6，回到菜单，选择2，更新内核吧"
-	exit 1
-fi
-
-apt update
-apt -y --no-install-recommends install openresolv dnsutils wireguard-tools
-wget -N https://github.com/YG-tsj/CFWarp-Pro/raw/main/wgcf
-cp wgcf /usr/local/bin/wgcf
-chmod +x /usr/local/bin/wgcf
-echo | wgcf register
-until [ $? -eq 0 ]
-do
-sleep 1s
-echo | wgcf register
-done
-wgcf generate
-sed -i "5 s/^/PostUp = ip -4 rule add from $rv4 table main\n/" wgcf-profile.conf
-sed -i "6 s/^/PostDown = ip -4 rule delete from $rv4 table main\n/" wgcf-profile.conf
-sed -i 's/engage.cloudflareclient.com/162.159.192.1/g' wgcf-profile.conf
-sed -i 's/1.1.1.1/8.8.8.8,2001:4860:4860::8888/g' wgcf-profile.conf
-cp wgcf-account.toml /etc/wireguard/wgcf-account.toml
-cp wgcf-profile.conf /etc/wireguard/wgcf.conf
-systemctl enable wg-quick@wgcf
-systemctl start wg-quick@wgcf
-rm -f wgcf*
-yellow " 检测是否成功启动（IPV4+IPV6）双栈Warp！\n 显示IPV4地址：$(wget -qO- -4 ip.gs) 显示IPV6地址：$(wget -qO- -6 ip.gs) "
-green " 如上方显示IPV4地址：8.…………，IPV6地址：2a09:…………，则说明成功啦！\n 如上方IPV4无IP显示,IPV6显示本地IP，则说明失败喽！ "
-}
-
-function warp4(){
-if [ "$main" -lt 5 ]|| [ "$minor" -lt 6 ]; then 
-	red " 检测到内核版本小于5.6，回到菜单，选择2，更新内核吧"
-	exit 1
-fi
-
-apt update
-apt -y --no-install-recommends install openresolv dnsutils wireguard-tools
-wget -N https://github.com/YG-tsj/CFWarp-Pro/raw/main/wgcf
-cp wgcf /usr/local/bin/wgcf
-chmod +x /usr/local/bin/wgcf
-echo | wgcf register
-until [ $? -eq 0 ]
-do
-sleep 1s
-echo | wgcf register
-done
-wgcf generate
-sed -i "5 s/^/PostUp = ip -4 rule add from $rv4 table main\n/" wgcf-profile.conf
-sed -i "6 s/^/PostDown = ip -4 rule delete from $rv4 table main\n/" wgcf-profile.conf
-sed -i 's/engage.cloudflareclient.com/162.159.192.1/g' wgcf-profile.conf
-sed -i '/\:\:\/0/d' wgcf-profile.conf
-sed -i 's/1.1.1.1/8.8.8.8,2001:4860:4860::8888/g' wgcf-profile.conf
-cp wgcf-account.toml /etc/wireguard/wgcf-account.toml
-cp wgcf-profile.conf /etc/wireguard/wgcf.conf
-systemctl enable wg-quick@wgcf
-systemctl start wg-quick@wgcf
-rm -f wgcf*
-yellow " 检测是否成功启动Warp！\n 显示IPV4地址：$(wget -qO- -4 ip.gs) "
-green " 如上方显示IPV4地址：8.…………，则说明成功啦！\n 如上方显示VPS本地IP,则说明失败喽！ "
-}
-
-function warp466(){
-if [ "$main" -lt 5 ]|| [ "$minor" -lt 6 ]; then 
-	red " 检测到内核版本小于5.6，回到菜单，选择2，更新内核吧"
-	exit 1
-fi
-
-apt update
-apt -y --no-install-recommends install openresolv dnsutils wireguard-tools
-wget -N https://github.com/YG-tsj/CFWarp-Pro/raw/main/wgcf
-cp wgcf /usr/local/bin/wgcf
-chmod +x /usr/local/bin/wgcf
-echo | wgcf register
-until [ $? -eq 0 ]
-do
-sleep 1s
-echo | wgcf register
-done
-wgcf generate
-sed -i "5 s/^/PostUp = ip -6 rule add from $rv6 table main\n/" wgcf-profile.conf
-sed -i "6 s/^/PostDown = ip -6 rule delete from $rv6 table main\n/" wgcf-profile.conf
-sed -i '/0\.0\.0\.0\/0/d' wgcf-profile.conf
-sed -i 's/1.1.1.1/8.8.8.8,2001:4860:4860::8888/g' wgcf-profile.conf
-cp wgcf-account.toml /etc/wireguard/wgcf-account.toml
-cp wgcf-profile.conf /etc/wireguard/wgcf.conf
-systemctl enable wg-quick@wgcf
-systemctl start wg-quick@wgcf
-rm -f wgcf*
-yellow " 检测是否成功启动Warp！\n 显示IPV6地址：$(wget -qO- -6 ip.gs) "
-green " 如上方显示IPV6地址：2a09:…………，则说明成功啦！\n 如上方无IP显示,则说明失败喽！ "
-}
-
-function warp4646(){
-if [ "$main" -lt 5 ]|| [ "$minor" -lt 6 ]; then 
-	red " 检测到内核版本小于5.6，回到菜单，选择2，更新内核吧"
-	exit 1
-fi
-
-apt update
-apt -y --no-install-recommends install openresolv dnsutils wireguard-tools
-wget -N https://github.com/YG-tsj/CFWarp-Pro/raw/main/wgcf
-cp wgcf /usr/local/bin/wgcf
-chmod +x /usr/local/bin/wgcf
-echo | wgcf register
-until [ $? -eq 0 ]
-do
-sleep 1s
-echo | wgcf register
-done
-wgcf generate
-sed -i "5 s/^/PostUp = ip -4 rule add from $rv4 table main\n/" wgcf-profile.conf
-sed -i "6 s/^/PostDown = ip -4 rule delete from $rv4 table main\n/" wgcf-profile.conf
-sed -i "7 s/^/PostUp = ip -6 rule add from $rv6 table main\n/" wgcf-profile.conf
-sed -i "8 s/^/PostDown = ip -6 rule delete from $rv6 table main\n/" wgcf-profile.conf
-sed -i 's/1.1.1.1/8.8.8.8,2001:4860:4860::8888/g' wgcf-profile.conf
-cp wgcf-account.toml /etc/wireguard/wgcf-account.toml
-cp wgcf-profile.conf /etc/wireguard/wgcf.conf
-systemctl enable wg-quick@wgcf
-systemctl start wg-quick@wgcf
-rm -f wgcf*
-yellow " 检测是否成功启动（IPV4+IPV6）双栈Warp！\n 显示IPV4地址：$(wget -qO- -4 ip.gs) 显示IPV6地址：$(wget -qO- -6 ip.gs) "
-green " 如上方显示IPV4地址：8.…………，IPV6地址：2a09:…………，则说明成功啦！\n 如上方IPV4无IP显示,IPV6显示本地IP，则说明失败喽！ "
-}
-
-function warp464(){
-if [ "$main" -lt 5 ]|| [ "$minor" -lt 6 ]; then 
-	red " 检测到内核版本小于5.6，回到菜单，选择2，更新内核吧"
-	exit 1
-fi
-
-apt update
-apt -y --no-install-recommends install openresolv dnsutils wireguard-tools
-wget -N https://github.com/YG-tsj/CFWarp-Pro/raw/main/wgcf
-cp wgcf /usr/local/bin/wgcf
-chmod +x /usr/local/bin/wgcf
-echo | wgcf register
-until [ $? -eq 0 ]
-do
-sleep 1s
-echo | wgcf register
-done
-wgcf generate
-sed -i "5 s/^/PostUp = ip -4 rule add from $rv4 table main\n/" wgcf-profile.conf
-sed -i "6 s/^/PostDown = ip -4 rule delete from $rv4 table main\n/" wgcf-profile.conf
-sed -i '/\:\:\/0/d' wgcf-profile.conf
-sed -i 's/1.1.1.1/8.8.8.8,2001:4860:4860::8888/g' wgcf-profile.conf
-cp wgcf-account.toml /etc/wireguard/wgcf-account.toml
-cp wgcf-profile.conf /etc/wireguard/wgcf.conf
-systemctl enable wg-quick@wgcf
-systemctl start wg-quick@wgcf
-rm -f wgcf*
-yellow " 检测是否成功启动Warp！\n 显示IPV4地址：$(wget -qO- -4 ip.gs) "
-green " 如上方显示IPV4地址：8.…………，则说明成功啦！\n 如上方显示VPS本地IP,则说明失败喽！ "
-}
-
 
 function iptables(){
 sudo iptables -P INPUT ACCEPT
@@ -1119,10 +939,10 @@ systemctl start wg-quick@wgcf
 }
 
 function macka(){
-sudo iptables -P INPUT ACCEPT
-sudo iptables -P FORWARD ACCEPT
-sudo iptables -P OUTPUT ACCEPT
-sudo iptables -F
+#sudo iptables -P INPUT ACCEPT
+#sudo iptables -P FORWARD ACCEPT
+#sudo iptables -P OUTPUT ACCEPT
+#sudo iptables -F
 wget -P /root -N --no-check-certificate "https://raw.githubusercontent.com/mack-a/v2ray-agent/master/install.sh" && chmod 700 /root/install.sh && /root/install.sh
 }
 
@@ -1330,26 +1150,24 @@ green " 如上方显示IPV4地址：8.…………，则说明成功啦！\n 如
 #主菜单
 function start_menu(){
     
-    green " 2. 更新系统内核 "
+    green " 1. 更新系统内核 "
     
-    green " 3. 开启原生BBR加速 "
+    green " 2. 开启原生BBR加速 "
     
-    green " 4. 检测奈飞Netflix是否解锁 "
+    green " 3. 检测奈飞Netflix是否解锁 "
     
-    green " 5. 添加WARP虚拟IPV6          "     
+    green " 4. 添加WARP虚拟IPV6          "     
     
-    green " 6.使用mack-a脚本（支持ARM架构VPS，支持协议：Xray, V2ray） "
+    green " 5.使用mack-a脚本（支持ARM架构VPS，支持协议：Xray, V2ray） "
     
-    green " 7. 重启VPS实例，请重新连接SSH "
+    green " 6. 重启VPS实例，请重新连接SSH "
     
-    green " 8. 退出脚本 "
+    green " 7. 退出脚本 "
     Print_ALL_Status_menu
     echo
     read -p "请输入数字:" menuNumberInput
     case "$menuNumberInput" in
-        1 )
-           iptables
-	;;
+
 	2 )
            arm5.11
 	;;
@@ -1417,6 +1235,6 @@ function start_menu(){
 start_menu "first"  
 
 else
- yellow "此CPU架构不是X86,也不是ARM！奥特曼架构？"
+ yellow "此CPU架构不是X86,也不是ARM！"
  exit 1
 fi

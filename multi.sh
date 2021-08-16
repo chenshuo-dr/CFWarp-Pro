@@ -1329,67 +1329,20 @@ green " 如上方显示IPV4地址：8.…………，则说明成功啦！\n 如
 
 #主菜单
 function start_menu(){
-    clear
     
-    yellow " 详细说明 https://github.com/YG-tsj/CFWarp-Pro  YouTube频道：甬哥侃侃侃" 
-    
-    red " 切记：进入脚本快捷方式 bash multi.sh "
-    
-    white " ================一、VPS调整选择（更新中）==============================================" 
-    
-    green " 1. 永久开启甲骨文VPS的ubuntu系统所有端口 "
-    
-    green " 2. 更新ARM架构Ubuntu系统内核至5.11版 "
+    green " 2. 更新系统内核 "
     
     green " 3. 开启原生BBR加速 "
     
     green " 4. 检测奈飞Netflix是否解锁 "
     
-    white " ================二、“内核集成模式”WARP功能选择（更新中）=================================="
+    green " 5. 添加WARP虚拟IPV6          "     
     
-    white " ----VPS原生IP数-------------------------------------添加WARP虚拟IP的位置----------"
+    green " 6.使用mack-a脚本（支持ARM架构VPS，支持协议：Xray, V2ray） "
     
-    green " 5. 纯IPV4的VPS。                                    添加WARP虚拟IPV6          "     
+    green " 7. 重启VPS实例，请重新连接SSH "
     
-    green " 6. 纯IPV4的VPS。                                    添加WARP虚拟IPV4+虚拟IPV6  "   
-    
-    green " 7. 纯IPV4的VPS。                                    添加WARP虚拟IPV4            "  
-    
-    green " 8. 双栈IPV4+IPV6的VPS。                             添加WARP虚拟IPV6             " 
-    
-    green " 9. 双栈IPV4+IPV6的VPS。                             添加WARP虚拟IPV4+虚拟IPV6     " 
-    
-    green " 10. 双栈IPV4+IPV6的VPS。                            添加WARP虚拟IPV4               "
-    
-    green " 11. 纯IPV6的VPS。                                  添加WARP虚拟IPV6               "
-    
-    green " 12. 纯IPV6的VPS。                                  添加WARP虚拟IPV4+虚拟IPV6       "
-    
-    green " 13. 纯IPV6的VPS。                                  添加WARP虚拟IPV4               "
-    
-    white " ------------------------------------------------------------------------------------------------"
-    
-    green " 14. 统一DNS功能 "
-    
-    green " 15. 永久关闭WARP功能 "
-    
-    green " 16. 自动开启WARP功能 "
-    
-    green " 17. 有IPV4：更新脚本 "
-    
-    green " 18. 无IPV4：更新脚本 "
-    
-    white " ===============三、代理协议脚本选择（更新中）==========================================="
-    
-    green " 19.使用mack-a脚本（支持ARM架构VPS，支持协议：Xray, V2ray） "
-    
-    white " ============================================================================================="
-    
-    green " 20. 重启VPS实例，请重新连接SSH "
-    
-    white " =============================================================================================" 
-    
-    green " 0. 退出脚本 "
+    green " 8. 退出脚本 "
     Print_ALL_Status_menu
     echo
     read -p "请输入数字:" menuNumberInput

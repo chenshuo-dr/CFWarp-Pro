@@ -863,3 +863,4 @@ fi
 #############系统检测组件#############
 apt-get update -y
 apt-get install curl wget -y
+start_menu

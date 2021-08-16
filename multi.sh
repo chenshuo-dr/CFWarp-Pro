@@ -812,9 +812,6 @@ sudo reboot
 
 #主菜单
 function start_menu(){
-
-    apt-get update -y
-    apt-get install curl wget -y
     
     green " 1. 更新系统内核 "
     
@@ -862,3 +859,7 @@ else
  yellow "此CPU架构不是X86,也不是ARM！"
  exit 1
 fi
+
+#############系统检测组件#############
+apt-get update -y
+apt-get install curl wget -y
